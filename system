@@ -1,1 +1,32 @@
+# NTN data collation
 
+### 🔸 1. What does this system do?
+
+It converts digital signals from MPEG transport stream multiplexers or generic sources  
+→ into a format suitable for **satellite transmission**.
+
+---
+
+### 🔸 2. What data formats are supported?
+
+The system supports:
+- **MPEG Transport Streams (TS)**
+- **Generic Streams (GS)**
+- And optionally **Multi-Protocol Encapsulation (MPE)**
+
+---
+
+### 🔸 3. What is the design goal?
+
+To achieve **Quasi Error Free (QEF)** transmission quality.
+
+---
+
+### 🔸 4. What does QEF mean?
+
+If signal quality is good (above C/N+I threshold):
+- At a bitrate of 5 Mbps (e.g., single TV service),
+- There will be **less than one uncorrected error per hour**
+- Meaning: **Packet Error Ratio (PER) < 10⁻⁷**
+
+---
