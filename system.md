@@ -30,37 +30,59 @@ If signal quality is good (above C/N+I threshold):
 
 ---
 # System architecture
-<img width="926" height="497" alt="image" src="https://github.com/user-attachments/assets/b0b6ce0b-0bd1-44e6-a389-f68fffcc702e" />
+### 🧩 1. Mode Adaptation
+- Accepts MPEG-TS or Generic Streams
+- Optional functions:
+  - Input stream synchronization
+  - Null-packet deletion (for ACM or TS)
+  - CRC-8 encoding for error detection
+  - Slicing into data fields
+  - Add **Base-Band Header (BBHEADER)**
 
-#### 1. Mode Adaptation
-- Accepts one or more **input streams** (e.g., MPEG-TS or Generic Streams)
-- Performs optional steps:
-  - Synchronization
-  - Null-packet deletion (for ACM/TS)
-  - **CRC-8 encoding** for error detection
-- Buffers and slices the input into data chunks
-- Adds **Base-Band Signalling**
+### 🧵 2. Stream Adaptation
+- Pads data to match base-band frame size
+- Scrambles data for energy dispersal
 
-#### 2. Stream Adaptation
-- Adds **padding** if needed to align with Base-Band Frame size
-- Scrambles data for energy distribution
+### 🛡 3. FEC Encoding
+- **BCH Encoder**: burst error correction
+- **LDPC Encoder**: powerful forward error correction
+- **Interleaving**: improves noise robustness
 
-#### 3. FEC Encoding
-- **BCH encoder**: corrects burst errors
-- **LDPC encoder**: adds powerful forward error correction (FEC)
-- **Interleaver**: shuffles bits for better robustness
+### 🔄 4. Mapping
+- Bit-to-symbol mapping (QPSK, 8PSK, 16APSK, 32APSK)
+- Gray-mapping used
 
-#### 4. Mapping
-- Converts coded bits into **modulation symbols**
-- Supports QPSK, 8PSK, 16APSK, 32APSK (with Gray mapping)
+### 🧱 5. PL Framing
+- Adds **PLHEADER**
+- Inserts optional **pilot symbols**
+- Outputs **PLFRAME**
 
-#### 5. PL Framing
-- Adds **Physical Layer Header**
-- Inserts **pilot symbols** (optional)
-- Generates PLFRAMES for transmission
+### 📡 6. Modulation
+- Root-raised cosine filter (roll-off: 0.35 / 0.25 / 0.20)
+- Final RF signal via I/Q modulation
 
-#### 6. Modulation
-- Applies **Base-Band Filtering** using root-raised cosine filter
-- Final step: **Quadrature Modulation** to RF
+---
+
+## ✨ 3. Key Enhancements in DVB-S2X
+
+### ✅ MODCODs & Filtering
+- Finer MODCOD steps
+- Sharper roll-off filters
+
+### ⚡ Efficiency
+- Time-slicing of wide-band signals
+- Multi-transponder bonding
+
+### 🧭 Advanced Signaling
+- Optional **Super-frame** structure
+- Extended **PLHEADER** for:
+  - More MODCODs
+  - Mobile Frame (VL-SNR)
+- **GSE-HEM** mode: higher BBFRAME efficiency
+- **GSE-Lite** stream signaling
+
+### 🛰 Beam-Hopping (Annex E)
+- Periodic and random beam switching
+- Supports VL-SNR down to -10 dB
 
 ---
