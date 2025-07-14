@@ -7,11 +7,11 @@
 ### 1. [ETSI EN 302 307-2 V1.3.1 (DVB-S2X)](https://www.etsi.org/deliver/etsi_en/302300_302399/30230702/01.03.01_20/en_30230702v010301a.pdf)
 - Defines the physical layer and framing structure (BBFRAME, FECFRAME, PLFRAME, SuperFrame) for satellite downlink communication.
 - Supports adaptive coding and modulation (ACM) and beam hopping in advanced systems.
-
+https://www.etsi.org/deliver/etsi_en/302300_302399/30230701/01.04.01_60/en_30230701v010401p.pdf
 ### 2. [ETSI EN 301 545-2 V1.4.1 (DVB-RCS2)](https://www.etsi.org/deliver/etsi_en/301500_301599/30154502/01.04.01_60/en_30154502v010401p.pdf)
 - Describes the return channel (uplink) structure based on MF-TDMA.
 - Defines terminal burst scheduling, TBTP tables, and NCC control protocols.
-
+https://www.etsi.org/deliver/etsi_en/301500_301599/30154502/01.01.01_60/en_30154502v010101p.pdf
 ---
 
 ## 📄 Implementation Guidelines
