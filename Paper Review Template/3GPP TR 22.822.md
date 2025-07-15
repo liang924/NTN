@@ -16,5 +16,4 @@ It introduces how 5G can be integrated with satellite access and explains in whi
 - Coverage Area
 - Synchronization accuracy
 - Power efficiency
-### System Architecture
 
