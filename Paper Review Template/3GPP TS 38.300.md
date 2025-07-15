@@ -15,10 +15,4 @@ Problem Statement
 - UE Power Efficiency
 - Signal Quality
 - Coverage and Availability
-### System Architecture
-Use a system architecture diagram to explain the overall content of the paper.
 
-Figure Summary
-Each figure should briefly explain what is being compared and what the data represents.
-
-Verification Method
