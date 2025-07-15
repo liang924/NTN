@@ -1,5 +1,5 @@
 ### NTN Normative Specs
-[3GPP about NTN](https://www.3gpp.org/technologies/ntn-overview?utm_source=chatgpt.com)
+[3GPP about NTN](https://www.3gpp.org/dynareport?code=38-series.htm)
 - 3GPP TR 38.811 – Study on NR to support NTN
 - 3GPP TR 22.822 – Study on using satellite access in 5G
 
