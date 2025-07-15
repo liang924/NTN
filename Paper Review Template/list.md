@@ -1,6 +1,6 @@
 ### NTN Normative Specs
-[3GPP about NTN](https://www.3gpp.org/dynareport?code=38-series.htm)
-- 3GPP TR 38.811 – Study on NR to support NTN
+#### 3GPP about NTN
+- [3GPP TR 38.811](https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3234) – Study on NR to support NTN
 - [3GPP TR 22.822](https://www.3gpp.org/ftp/Specs/archive/22_series/22.822/) – Study on using satellite access in 5G
 
 [5G from Space: An Overview of 3GPP Non‑Terrestrial Networks](https://arxiv.org/abs/2103.09156)
