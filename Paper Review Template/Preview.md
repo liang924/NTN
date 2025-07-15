@@ -38,7 +38,8 @@ This presentation clearly introduces the system architecture and key challenges 
 - Synchronization accuracy
 - Power efficiency
 ### System Architecture
-<img width="638" height="411" alt="image" src="https://github.com/user-attachments/assets/6a352504-5cd1-44a8-90eb-0576d4c57d3d" />
+<img width="638" height="411" alt="466271620-6a352504-5cd1-44a8-90eb-0576d4c57d3d-fotor-20250715105014" src="https://github.com/user-attachments/assets/6dedcabb-df08-4ab5-9b1f-1bf7aae8df74" />
+
 
 Starting from the bottom left, we have the Terminal, which refers to the user equipment (UE or VSAT). It connects to the Satellite above through the Service Link.
 However, several challenges arise in this communication:
