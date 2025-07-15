@@ -1,5 +1,5 @@
 > Reference :
-[3GPP TR 22.822]([https://u.pcloud.link/publink/show?code=kZbSRB5ZcCoOvCSbE5f1t94U8EKD08cm4L7V#/filemanager?folder=27002009791](https://www.3gpp.org/ftp/Specs/archive/22_series/22.822/))
+[3GPP TR 22.822](https://www.3gpp.org/ftp/Specs/archive/22_series/22.822/)
 
 ### Reason for Choosing
 It introduces how 5G can be integrated with satellite access and explains in which situations this technology is needed and what requirements may arise.
