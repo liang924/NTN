@@ -11,7 +11,7 @@ https://www.3gpp.org/ftp/Specs/archive/22_series/22.822/
 https://www.etsi.org/deliver/etsi_ts/138100_138199/138108/
 
 [5] 3GPP, “NR and NG-RAN Overall Description,” 3GPP TS 38.300, v17.x.x, 2023. 
-Available: https://www.etsi.org/deliver/etsi_ts/138300_138399/138300/
+https://www.etsi.org/deliver/etsi_ts/138300_138399/138300/
 
 [6] 3GPP, “System Architecture for the 5G System (5GS),” 3GPP TS 23.501, v17.x.x, 2023. 
 https://www.etsi.org/deliver/etsi_ts/123500_123599/123501/
