@@ -8,3 +8,7 @@
 [Narrowband IoT for Non‑Terrestrial Networks](https://arxiv.org/pdf/2103.09156)
 
 [Implementation of a Channel Model for NTN in ns‑3](https://arxiv.org/abs/2305.05544)
+
+[Non‑Terrestrial Networks in 5G & Beyond: A Survey](https://www.researchgate.net/publication/344352771_Non-Terrestrial_Networks_in_5G_Beyond_A_Survey?utm_source=chatgpt.com)
+
+[Throughput and Capacity Evaluation of 5G NR NTN with LEO Satellites](https://arxiv.org/abs/2012.02136)
