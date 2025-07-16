@@ -1,7 +1,7 @@
 ### Reason for choosing
 This is a core document that introduces the overall architecture of 5G and includes the role and integration of NTN within the 5G system.
 
-Problem Statement
+### Problem Statement
 - Traditional 5G architecture is not designed for high-latency satellite links
 - Doppler effect causes frequency shift, affecting synchronization and reception quality
 - Terrestrial User Equipment (UE) is not designed for satellite scenarios 
