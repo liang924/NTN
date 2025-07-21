@@ -68,7 +68,7 @@
   - Data transfer begins between the UE and the UPF (User Plane Function).
 ### NTN O&M Parameters
 - https://forge.3gpp.org/rep/sa5/MnS/-/tree/Rel-18/yang-models
-#### NTN RRM
+### NTN RRM
 - QoS
   | Item              | Terrestrial Network           | Non-Terrestrial Network (NTN)                          |
   |-------------------|-------------------------------|--------------------------------------------------------|
