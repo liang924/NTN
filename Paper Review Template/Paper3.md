@@ -64,3 +64,15 @@
 | **RLC Channels**       | Responsible for segmentation and reassembly of data.                                |
 | **Logical Channels**   | Separate different types of data (control vs. user).                                |
 | **Transport Channels** | Interface between logical channels and physical layer for actual data transmission. |
+
+
+###  Parameters Used and Compared in Simulation
+
+| Parameter Name              | Unit | Description |
+|----------------------------|------|-------------|
+| **Coupling Loss**          | dB   | Represents the path loss between the user terminal (UE) and the satellite or base station. Lower values indicate less signal loss and are therefore better. |
+| **SINR (Signal-to-Interference-plus-Noise Ratio)** | dB   | Indicates the ratio of the signal strength to the sum of interference and noise. Higher values mean better signal quality. |
+| **User Throughput**        | kbps | The actual data transmission rate per user. Higher throughput is preferable as it reflects better data delivery capacity. |
+| **Erroneous Bits per User**| %    | The percentage of incorrect bits received by each user. Lower values are better, indicating more accurate data transmission. |
+
+The DVB‑S2X/RCS2 system simulation uses SNS3, while the 5G NR NTN architecture is simulated using ALIX.
