@@ -16,3 +16,24 @@
 | **Network Slicing**        | Fully supports end-to-end slicing for differentiated services                              | Not supported                                                                                         |
 | **Synchronization** | DL: via periodic Synchronization Signal Blocks (SSB); UL: via Timing Advance (TA), controlled by UE or network | DL: continuous pilot-based sync signals (unless beam hopping); UL: uses dedicated control slots for sync  |
 | **Security**         | Well-defined security architecture, supports authentication and PDCP-based encryption/integrity | Some high-level security needs identified, but no standardized framework defined                          |
+
+
+### Operating Conditions Comparison
+
+| **Aspect**                          | **5G NR NTN**                                                                                                                   | **DVB-S2X/RCS2**                                                                                                |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **Synchronization**              | Downlink: SSB (Synchronization Signal Block);<br>Uplink: Timing Advance (TA), calculated via UE or network.                     | Downlink: Uses continuous pilot signals at the physical layer;<br>Uplink: Uses time-slot-based synchronization. |
+| **Security Framework**           | Well-defined security architecture with user authentication and secure communication (e.g., encryption and integrity via PDCP). | Some high-level security requirements are defined in the standard, but no specific security framework is given. |
+| **Supported Platforms**          | Supports LEO, MEO, GEO, and HAPS (High Altitude Platform Stations).                                                             | Currently supports GEO only; NGSO (e.g., LEO) support is not yet standardized but may be implemented in future. |
+| **Supported Frequency Bands**    | FR1 (410–7125 MHz), FR2-1 (24.25–52.6 GHz), FR2-2 (52.6–71 GHz).                                                                | Uses traditional satellite bands: C-band (4–8 GHz), Ku-band (12–18 GHz), Ka-band (26–40 GHz).                   |
+| **Uplink Bandwidth Limitations** | Uplink bandwidth in NR can go up to 400 MHz or even more via carrier aggregation (e.g., FR2-2 supports up to 2000 MHz).         | Uplink channel bandwidths are limited (e.g., minimum 64 kHz, maximum 167 MHz depending on waveform and symbol). |
+| **Positioning Support**          | Supports GNSS-based and network-based positioning services.                                                                     | Not supported.                                                                                                  |
+| **Network Slicing / QoS**        | Supports end-to-end QoS via QoS Flows, 5QI (5G QoS Identifiers), and network slicing.                                           | Not supported.                                                                                                  |
+| **HARQ/ARQ Mechanism**          | HARQ is supported at physical layer;<br>ARQ at RLC layer; defined and integrated in the 5G NR standard.                         | ARQ is possible via DVB-S2X/RCS2 MAC layer implementations, but not strictly defined in the official standard.  |
+
+
+### Conclusion
+
+DVB-S2X/RCS2: Best suited for fixed broadband satellite communication, with stable and mature technology.
+
+5G NR NTN: Aimed at mobile communications and innovative applications, though its satellite performance still requires optimization.
