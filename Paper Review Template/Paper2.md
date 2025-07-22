@@ -25,9 +25,7 @@
 | **Supported Platforms**          | Supports LEO, MEO, GEO, and HAPS (High Altitude Platform Stations).                                                             | Currently supports GEO only; NGSO (e.g., LEO) support is not yet standardized but may be implemented in future. |
 | **Supported Frequency Bands**    | FR1 (410–7125 MHz), FR2-1 (24.25–52.6 GHz), FR2-2 (52.6–71 GHz).                                                                | Uses traditional satellite bands: C-band (4–8 GHz), Ku-band (12–18 GHz), Ka-band (26–40 GHz).                   |
 | **Uplink Bandwidth Limitations** | Uplink bandwidth in NR can go up to 400 MHz or even more via carrier aggregation (e.g., FR2-2 supports up to 2000 MHz).         | Uplink channel bandwidths are limited (e.g., minimum 64 kHz, maximum 167 MHz depending on waveform and symbol). |
-| **Positioning Support**          | Supports GNSS-based and network-based positioning services.                                                                     | Not supported.                                                                                                  |
 | **Network Slicing / QoS**        | Supports end-to-end QoS via QoS Flows, 5QI (5G QoS Identifiers), and network slicing.                                           | Not supported.                                                                                                  |
-| **HARQ/ARQ Mechanism**          | HARQ is supported at physical layer;<br>ARQ at RLC layer; defined and integrated in the 5G NR standard.                         | ARQ is possible via DVB-S2X/RCS2 MAC layer implementations, but not strictly defined in the official standard.  |
 
 
 ### Conclusion
