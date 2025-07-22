@@ -1,1 +1,6 @@
+## Simulative Comparison of DVB-S2X/RCS2 and 3GPP 5G NR NTN Technologies in a Geostationary Satellite Scenario
+Reference: https://arxiv.org/pdf/2502.13704
 
+### Technical Architecture and Standard Background
+**DVB-S2X/RCS2**-- are traditional satellite communication standards primarily designed for satellite broadcasting, news gathering, and point-to-point (PTP) connections. They employ static frame structures and modulation schemes aimed at enhancing spectral efficiency and expanding frequency ranges to support high data rate transmissions. However, they are relatively limited in dynamic resource allocation and multi-user support, being more suited to point-to-point or static configuration scenarios.
+**NR NTN** -- builds on the current 5G New Radio standards by adding dynamic resource management for satellite communication, supporting high-frequency bands like Ka-band to improve spectrum efficiency, and incorporating multi-connectivity, multi-user scheduling, and adaptive modulation schemes to handle high mobility, multiple users, and high latency. It also supports flexible device configurations and network optimization, offering more advanced management and transmission features than traditional satellite standards.
