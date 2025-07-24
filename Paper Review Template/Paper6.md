@@ -1,7 +1,8 @@
 ## Peculiarities of Traffic and QoS management in 5G NTN networks
 ## A QoS Architecture for DVB-RCS Next Generation Satellite Networks
-[Reference -- about NTN QoS](https://iris.cnr.it/retrieve/62e41ddc-9593-4291-a613-c9f72ccb8557/prod_486461-doc_201816.pdf?utm_source=chatgpt.com)
-[Reference -- about DVB QoS](https://citeseerx.ist.psu.edu/document?doi=f90e3ba2ecdee78b1210a829ecadecfc2043c870)
+
+- [Reference -- about NTN QoS](https://iris.cnr.it/retrieve/62e41ddc-9593-4291-a613-c9f72ccb8557/prod_486461-doc_201816.pdf?utm_source=chatgpt.com)
+- [Reference -- about DVB QoS](https://citeseerx.ist.psu.edu/document?doi=f90e3ba2ecdee78b1210a829ecadecfc2043c870)
 
 - Why I need to read this paper ?
 - I can understand specific QoS measures should be added to the NTN & DVB system to adapt to satellite characteristics and operational requirements.
