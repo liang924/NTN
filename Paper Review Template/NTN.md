@@ -23,7 +23,7 @@
   - DU hosts RLC (Radio Link Control), MAC (Medium Access Control), PHY (Physical Layers)
   - F1 link (connects CU to DU) is implemented using the SRI (Satellite Radio Interface)
   - Each CU connects to multiple DU and perform coordination according to the CU-DU separation options
-### Use Message sequence charts (MSCs) to show the steps required by an NTN UE to
+### Use Message sequence charts (MSCs) to show the steps required by an NTN UE to establish a connection with the gNB
 
 <img width="813" height="645" alt="image" src="https://github.com/user-attachments/assets/14bc6721-6af8-4e87-87f1-f0d164ca4605" />
 
