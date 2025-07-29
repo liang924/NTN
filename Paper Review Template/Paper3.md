@@ -17,6 +17,19 @@
 | Scheduling & Protocol Stack   | Dynamic NR resource scheduling          | Faster onboard NR scheduling               | Fixed frames + CRA (Contention Resolution Algorithm) |
 | Target Application Scenarios  | Lower cost, suitable for static users   | High flexibility, ideal for mobility       | Broadcasting, news, static users, latency not critical |
 
+| **Aspect** | **5G NR NTN (Transparent)** | **DVB‑S2X / RCS2 (Transparent)** |
+|------------|----------------------------|----------------------------------|
+| **Terminal states** | *Idle / Inactive / Connected* | *Connected / Not Connected* |
+| **Terminal mobility** | Idle/Inactive reselection ＋ Connected hand‑over | Same‑network beam / satellite / GW hand‑over only |
+| **Data‑flow pattern** | DL & UL: continuous **or** bursty, small‑to‑medium blocks | DL: continuous, medium‑to‑large blocks • UL: bursty, small‑to‑medium blocks |
+| **Multi‑connectivity** | ATSSS, traffic steering / splitting | *Not supported* |
+| **Positioning service** | GNSS (+ possible network‑based) | *Not supported* |
+| **Reliability aids** | PHY HARQ ＋ RLC ARQ | ARQ possible via RLE; **not in the standard** |
+| **Energy saving** | Idle / Inactive modes, lean carrier, etc. | *None defined in standard* |
+| **Network slicing** | End‑to‑end slicing available | *Not supported* |
+| **Synchronization** | DL: SSB burst • UL: TA ＋ freq‑offset compensation | DL: pilot blocks in PLFRAME (except beam‑hop) • UL: dedicated sync time‑slots |
+| **Security framework** | Full 5G authentication & integrity (RRC / PDCP) | Only high‑level needs listed; no detailed framework |
+
 ### DVB-S2 protocol stack with GSE implemented
 
 <img width="879" height="451" alt="image" src="https://github.com/user-attachments/assets/54aff6eb-b3cb-458e-a8f4-d2c2acf03fce" />
