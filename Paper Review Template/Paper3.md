@@ -17,6 +17,20 @@
 | Scheduling & Protocol Stack   | Dynamic NR resource scheduling          | Faster onboard NR scheduling               | Fixed frames + CRA (Contention Resolution Algorithm) |
 | Target Application Scenarios  | Lower cost, suitable for static users   | High flexibility, ideal for mobility       | Broadcasting, news, static users, latency not critical |
 
+### Transparent‑Payload Architecture: NR NTN vs. DVB‑S2X/RCS2
+
+| **System‑level Feature** | **5G NR NTN (Transparent)** | **DVB‑S2X / RCS2 (Transparent)** |
+|--------------------------|-----------------------------|----------------------------------|
+| **Satellite role** | Pure “bent‑pipe” RF repeater; forwards NR‑Uu symbols, no decoding | Pure RF repeater; forwards DVB‑S2X / RCS2 bursts, no decoding |
+| **Ground control node** | Full **gNB (CU+DU)** on Earth, co‑located with NTN Gateway | **Hub / GW** handles RF; network control in NCC/NMC (no gNB) |
+| **User‑space link** | **Service link**: NR‑Uu (UE ⇆ Satellite) | **Forward user link**: DVB‑S2X (DL) <br>**Return user link**: DVB‑RCS2 MF‑TDMA (UL) |
+| **Feeder / backhaul link** | **Feeder link**: still NR‑Uu (Satellite ⇆ NTN GW) | **Forward feeder**: DVB‑S2X <br>**Return feeder**: DVB‑RCS2 |
+| **Scheduling logic** | Done at ground gNB; dynamic NR scheduler | Fixed frames + CRA/DRF in Hub; MF‑TDMA slot allocation |
+| **Typical topology** | UE → Satellite → multiple ground Gateways (Gateway hand‑over for LEO) | Star (RCST→Hub) or optional Mesh (RCST↔RCST via satellite) |
+| **Primary use cases** | Broadband + mobile service, supports mobility & slicing | Broadcast/OTT DL + bursty UL; news, VSAT, latency‑insensitive apps |
+
+### Functional Comparison of Transparent 5G NR NTN vs. DVB‑S2X/RCS2
+
 | **Aspect** | **5G NR NTN (Transparent)** | **DVB‑S2X / RCS2 (Transparent)** |
 |------------|----------------------------|----------------------------------|
 | **Terminal states** | *Idle / Inactive / Connected* | *Connected / Not Connected* |
@@ -29,6 +43,7 @@
 | **Network slicing** | End‑to‑end slicing available | *Not supported* |
 | **Synchronization** | DL: SSB burst • UL: TA ＋ freq‑offset compensation | DL: pilot blocks in PLFRAME (except beam‑hop) • UL: dedicated sync time‑slots |
 | **Security framework** | Full 5G authentication & integrity (RRC / PDCP) | Only high‑level needs listed; no detailed framework |
+
 
 ### DVB-S2 protocol stack with GSE implemented
 
