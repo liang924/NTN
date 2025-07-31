@@ -43,6 +43,8 @@ Yellow bar: 2 slots (each also contains 14 OFDM symbols)
 
 **PRB(Physical Resource Block)** --	A group of 12 subcarriers × 14 OFDM symbols. It is the fundamental unit of resource allocation for data transmission and reception. Shown as blue blocks.
 
+**BWP(Bandwidth Part)** -- The entire bandwidth is divided into several parts, so that the UE (User Equipment) doesn't have to process the whole bandwidth at once, but only focuses on a specific portion of it.
+
 ### Comparison: 5G NTN Frame vs. DVB-S2X Super-frame vs. DVB-RCS2 Super-frame
 
 | Aspect                     | **5G NTN (NR Frame)**                                                                 | **DVB‑S2X Super-frame**                                                   | **DVB‑RCS2 Super-frame**                                                    |
@@ -53,6 +55,6 @@ Yellow bar: 2 slots (each also contains 14 OFDM symbols)
 | **Format/Mode**         | Determined by numerology (μ = 0~4 → different SCS)                                     | Uses Format 0–7 to define payload rules (e.g., VL-SNR, Beam hopping)      | No format concept; uplink resources allocated dynamically by MAC layer     |
 | **Minimum Unit**        | Resource Element (RE) = 1 OFDM symbol × 1 subcarrier                                   | Symbol groups with embedded sync and scrambling structure                 | Burst Time Unit (BTU)                                                      |
 | **Reset Periodicity**   | No explicit scrambler reset; changes at slot/symbol boundaries                         | Scrambler reset occurs at beginning and end of each super-frame           | No scrambler reset; scheduling controlled by MAC                           |
-| **Resource Allocation** | Uses BWP + PRB, dynamically adjusted based on UE status                                | SFFI defines pilot, PLFRAME, FEC settings per format                      | Uses DRA (Demand-based Resource Allocation) for uplink scheduling          |
+| **Resource Allocation** | Uses BWP(Bandwidth Part）+ PRB, dynamically adjusted based on UE status                                | SFFI defines pilot, PLFRAME, FEC settings per format                      | Uses DRA (Demand-based Resource Allocation) for uplink scheduling          |
 | **Specialized Features**| Supports mobility, low-latency control, high throughput                                | Supports VL-SNR, beam hopping, broadcast content delivery                 | Supports multi-user dynamic uplink and high-capacity transmissions         |
 | **Specification Source**| 3GPP TS 38.211, 38.214 (with NTN extensions)                                           | ETSI EN 302 307‑2 (Annex E)                                               | ETSI EN 301 545‑2 (includes MAC and uplink structure)                      |
