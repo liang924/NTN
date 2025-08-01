@@ -1,6 +1,6 @@
 ## System Architecture
 
-<img width="1118" height="755" alt="image" src="https://github.com/user-attachments/assets/e1d7dde9-4c60-40d0-8a75-fcfe42e279e5" />
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/e1d7dde9-4c60-40d0-8a75-fcfe42e279e5" />
 
 ### 1. Transparent Architecture
 
@@ -13,7 +13,7 @@
   - **RCST**: Terminal device that receives control information and transmits return link data.
   - **GW-RCST**: Gateway-type terminal that connects to terrestrial networks.
   
-<img width="1109" height="739" alt="image" src="https://github.com/user-attachments/assets/e63e28d3-4d6d-4498-adaa-ad780d25c570" />
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/e63e28d3-4d6d-4498-adaa-ad780d25c570" />
 
 ### 2. Regenerative Architecture
 
@@ -26,7 +26,7 @@
   - **NMC / NCC**: Provides management and control plane functions.
 
  ## DVB-RCS2 actors and roles
- <img width="1052" height="665" alt="image" src="https://github.com/user-attachments/assets/f2dce364-35ad-4e8b-9dc7-f893776bba6f" />
+ <img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/f2dce364-35ad-4e8b-9dc7-f893776bba6f" />
 
 1. **Satellite Operator (SO)**
    - Manages the entire satellite system.
@@ -46,6 +46,9 @@
 5. **End-user**
    - The final users accessing satellite services through the RCST LAN interface.
 
+### Protocol Architecture
+
+<img width="500" height="750" alt="image" src="https://github.com/user-attachments/assets/75ae7bbd-f5b2-40c0-9f84-fca1e4b492e7" />
 
 ### 1. Physical Layer (L1)
 - Forward Link uses DVB-S2 or DVB-S2X with Generic Stream Encapsulation (GSE).
