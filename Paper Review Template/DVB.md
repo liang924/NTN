@@ -95,7 +95,9 @@
 **BTUs (Burst Time Units)** -- Each timeslot is further divided into several BTUs (Burst Time Units).A BTU is the smallest unit of resource allocation, used to transmit a burst of data.The left and right sides of the green block may represent different users or connections, with varying numbers of BTUs assigned based on their needs.
 
 
-## 🔹 Section 9.5: Return Link Timeslot Grid Control
+> Reference https://www.etsi.org/deliver/etsi_en/301500_301599/30154502/01.04.01_60/en_30154502v010401p.pdf
+
+## Section 9.5: Return Link Timeslot Grid Control
 
 **Objective:**  
 To manage and arrange the timeslot configuration on the return link for efficient and flexible resource allocation.
@@ -113,7 +115,7 @@ To manage and arrange the timeslot configuration on the return link for efficien
 
 ---
 
-## 🔹 Section 9.6: Timeslot Access Method Control
+## Section 9.6: Timeslot Access Method Control
 
 **Objective:**  
 To determine the media access method used in each timeslot (e.g., random access or dedicated access).
@@ -133,3 +135,157 @@ To determine the media access method used in each timeslot (e.g., random access 
   If a timeslot is used for continuous transmission, this may be preconfigured either via TBTP2 or through a CC Control Descriptor delivered in a TIM-U message.
 
 ---
+## 9.7.1 Random Access Load Control for Logon
+
+### 9.7.1.1 Stationary RA Load Control for Logon
+
+**Purpose:**  
+- Control the normal operating load level on the logon channel  
+- Limit autonomous transmission intensity to comply with regulatory requirements
+
+**Mechanism Description:**
+- When an RCST sends an RA logon request without receiving a response or if rejected, it must apply a random hold-off interval before retransmitting.
+- Retransmission parameters are provided by the NCC through the `Logon Contention Descriptor` (delivered in TIM-B).
+
+**Initial Logon Attempt:**
+- Hold-off interval is a uniformly distributed random variable in the range `[0, max_time_before_retry]`, defined by the NCC.
+
+**Retransmission on Failure:**
+- If the logon attempt fails without response, further retransmission occurs after a uniformly distributed random interval in the range `[0, n² × max_time_before_retry]`, where `n` is one more than the number of consecutive failures.
+
+**Resetting the Counter `n` to 1:**
+- RCST receives a logon response `TIM-U`
+- NCC sets either:
+  - Link Failure Recovery flag
+  - Logon Link Failure Recovery flag in `TIM-B`
+- RCST is explicitly woken up by a `TIM-U`
+- A local operator manually restarts the logon procedure
+- RCST connects to the forward link of another network (identified by NIT-ONID and RMT-INID)
+
+**Note:**  
+- Automatic return to the "Off/Standby" state **does not** reset `n`.
+
+---
+
+### 9.7.1.2 Dynamic RA Load Control for Logon
+
+**Features and Operation:**
+- The `max_time_before_retry` parameter from the stationary load control may be modified at runtime by the NCC.
+- For large-scale outage recovery, the NCC may set the `Link Failure Recovery` flag in `TIM-B` to instruct the RCST to follow a predefined recovery procedure.
+- This predefined procedure is **implementation dependent**.
+
+---
+## Section 9.7.2: Contention Control for Control Timeslots (Optional)
+
+### 1. Functional Overview
+
+- **The RCST may optionally use contention control timeslots** to transmit control signals.
+- This mechanism is **not mandatory**.
+- Main usage scenario:
+  - When **dedicated resources are insufficient** for sending capacity request signals, this serves as an alternative.
+- **The actual utilization policy is implementation dependent**.
+
+---
+
+### 2. Stationary RA Load Control for Control Signals (9.7.2.1)
+
+- **The NCC defines the parameter `default_control_randomization_interval` in the TIM-U’s Lower Layer Service Descriptor**:
+  - It specifies the **minimum randomization interval** for selecting a control timeslot using slotted ALOHA.
+  - The RCST must **uniformly and randomly select one control timeslot** within this interval for transmitting control signals.
+  - The set of control timeslots is provided by **SCT, FCT2, and TBTP2**, and is included in the **Superframe Specification (SFS)**.
+
+- **Special condition — when the parameter is set to 255**:
+  - The RCST shall interpret this as "**RA control signalling is not allowed**", even if control timeslots are present.
+
+## 9.7.3 Contention Control for Traffic Timeslots
+
+**Random Access Load Control Mechanism for Traffic Transmission Timeslots**
+
+---
+
+### 9.7.3.0 Introduction
+
+- **Assignment of Control Mechanism**:
+  - Each RA allocation channel statically receives its load control method via the `Random Access Traffic Method Descriptor`.
+  - If `load_control_method = 0`:
+    - It means **no load control is applied**, and upper-layer mechanisms are expected to regulate traffic flow.
+  - If the value is non-zero:
+    - The RCST must implement **stationary load control**, unless **dynamic control is enabled**.
+
+- **RA Blocks**:
+  - The superframe is divided into **RA blocks**, which serve as the basic units for load control.
+  - If unspecified, the entire superframe is treated as a **single RA block** by default.
+
+---
+
+### 9.7.3.1 Stationary RA Load Control for Traffic
+
+- Applicable when **dynamic load control is not enabled**.
+- The RCST uses the control parameter values defined in the **Lower Layer Service Descriptor**.
+- These parameters also serve as the **default values** for each RCST.
+- If dynamic load control is enabled, parameter values are instead taken from the **Random Access Load Control Descriptor**.
+
+---
+
+### 9.7.3.2 Dynamic RA Load Control for Traffic
+
+- **Parameters are provided by the NCC** via the `Random Access Load Control Descriptor`.
+- Depending on the access mechanism, control applies to:
+  - **Slotted ALOHA (SA)**: Control unit is the ALOHA timeslot.
+  - **CRDSA**: Control unit is the entire RA block.
+
+#### Core Logic in SA / CRDSA:
+
+- Transmission timing is determined **randomly based on `back_off_time` and `back_off_probability`**.
+- If there is unsent data in the buffer:
+  - After back-off ends, the RCST decides whether to transmit based on the probability.
+  - Transmission opportunity is defined as:
+    - **SA**: The ALOHA timeslot.
+    - **CRDSA**: The RA block.
+
+#### Constraints:
+
+- Transmission behavior within an RA block is governed by:
+  - `max_unique_payload_per_block`
+  - `max_consecutive_blocks_accessed`
+  - `min_idle_blocks`
+
+# 9.9 Control of RCST Transmission Characteristics
+
+## 9.9.1 EIRP Control
+- The RCST can adjust the reference EIRP in 0.5 dB steps as instructed by the NCC.
+- Two EIRP control modes are defined:
+  - **Constant EIRP**: Maintains the same EIRP across all transmissions.
+  - **Constant Power Spectral Density**: Maintains the same spectral density for each transmission.
+- The RCST reports **maximum power headroom** (difference between nominal max and min EIRP).
+- If instructed to increase power and headroom ≥ 2 dB, RCST shall transmit at max allowed output.
+
+## 9.9.2 Transmission Duration Control
+- Burst duration is defined either directly via FCT2/BCT or indirectly via TBTP2.
+- **Non-persistent CC**: Duration is governed by TBTP2 timeout.
+- **Persistent CC**: Continues until revocation or unmet conditions arise.
+
+## 9.9.3 Symbol Rate Control
+- Symbol rate is based on the frame type (FCT2) and BTU duration.
+- If frame number changes (in superframe), the initial assignment applies unless redefined.
+
+## 9.9.4 Return Link MODCOD Control
+- MODCOD can be specified directly or indirectly via TBTP2.
+- When using TBTP2: `tx_type` may be predefined or changed via countdown control message.
+- The change applies immediately if countdown = 0.
+
+## 9.9.6 Contention Diversity Transmission Control (optional)
+Required capabilities for CRDSA RCST:
+1. Must support CR-CRDSA (VR-CRDSA optional).
+2. Support single-carrier RA blocks when `noInstances > 2`.
+3. Support for `noInstances = {1, 2, 3}`.
+4. SA method if `noInstances = 1`, else CRDSA for `>1`.
+5. RA block duration ≤ 150 ms.
+6. RA block with slots = 64 to 128.
+7. Support sub-multiple slot configurations.
+8. RA blocks within single superframe, non-crossing.
+9. Equal-sized RA blocks per frame.
+10. Minimum of one unique payload per RA block.
+11. RA blocks without pre-assigned `transmission_type`.
+12. Proper signaling with `transmission_type` field unset.
+
