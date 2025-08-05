@@ -1,5 +1,5 @@
 > Reference https://www.etsi.org/deliver/etsi_ts/101500_101599/10154501/01.03.01_60/ts_10154501v010301p.pdf
-## System Architecture
+# System Architecture
 
 <img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/e1d7dde9-4c60-40d0-8a75-fcfe42e279e5" />
 
@@ -26,7 +26,7 @@
   - **Regenerative GW-RCST**: Gateway terminal supporting terrestrial network access.
   - **NMC / NCC**: Provides management and control plane functions.
 
- ## DVB-RCS2 actors and roles
+ # DVB-RCS2 actors and roles
  <img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/f2dce364-35ad-4e8b-9dc7-f893776bba6f" />
 
 1. **Satellite Operator (SO)**
@@ -47,7 +47,7 @@
 5. **End-user**
    - The final users accessing satellite services through the RCST LAN interface.
 
-### Protocol Architecture
+# Protocol Architecture
 
 <img width="500" height="750" alt="image" src="https://github.com/user-attachments/assets/75ae7bbd-f5b2-40c0-9f84-fca1e4b492e7" />
 
@@ -76,7 +76,7 @@
 - Supports TRANSEC_Certificate and TRANSEC_Chaff protocols.
 - Enhances confidentiality, integrity, and protection against attacks.
 
-### DVB-S2X super-frame structure
+# DVB-S2X super-frame structure
 <img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/eaf57ad2-5e5b-4e44-a67f-cdc05d0516b7" />
 
 **SOSF（Start of Super-Frame）** -- The SOSF contains a known sequence (preamble) that helps the receiver perform time synchronization, frequency synchronization, and carrier estimation. It is typically composed of predefined symbols and does not carry actual user data.
@@ -85,7 +85,7 @@
 
 **Format-Specific rules for resource allocation and content** -- This means that in the Payload section of the DVB-S2X Super-frame, both the content arrangement and resource allocation are determined based on the format (Format 0–7) indicated by the SFFI. Different formats (Format 0 to 7) may have different PLFRAME structures, modulation schemes (such as QPSK, 8PSK, 16APSK), FEC coding rates, pilot configurations, and support for beam hopping or VL-SNR applications.
 
-### DVB-RCS2 super-frame structure 
+# DVB-RCS2 super-frame structure 
 <img width="400" height="600" alt="image" src="https://github.com/user-attachments/assets/bf9fc411-baeb-4929-b7b5-8b71224d8f91" />
 
 **Super-frame** -- A super-frame is composed of multiple frames, and each frame is assigned a specific bandwidth and time duration based on user requirements.
@@ -97,7 +97,7 @@
 
 > Reference https://www.etsi.org/deliver/etsi_en/301500_301599/30154502/01.04.01_60/en_30154502v010401p.pdf
 
-## Section 9.5: Return Link Timeslot Grid Control
+# Section 9.5: Return Link Timeslot Grid Control
 
 **Objective:**  
 To manage and arrange the timeslot configuration on the return link for efficient and flexible resource allocation.
@@ -115,7 +115,7 @@ To manage and arrange the timeslot configuration on the return link for efficien
 
 ---
 
-## Section 9.6: Timeslot Access Method Control
+# Section 9.6: Timeslot Access Method Control
 
 **Objective:**  
 To determine the media access method used in each timeslot (e.g., random access or dedicated access).
@@ -135,6 +135,7 @@ To determine the media access method used in each timeslot (e.g., random access 
   If a timeslot is used for continuous transmission, this may be preconfigured either via TBTP2 or through a CC Control Descriptor delivered in a TIM-U message.
 
 ---
+# 9.7
 ## 9.7.1 Random Access Load Control for Logon
 
 ### 9.7.1.1 Stationary RA Load Control for Logon
@@ -165,8 +166,6 @@ To determine the media access method used in each timeslot (e.g., random access 
 **Note:**  
 - Automatic return to the "Off/Standby" state **does not** reset `n`.
 
----
-
 ### 9.7.1.2 Dynamic RA Load Control for Logon
 
 **Features and Operation:**
@@ -174,10 +173,9 @@ To determine the media access method used in each timeslot (e.g., random access 
 - For large-scale outage recovery, the NCC may set the `Link Failure Recovery` flag in `TIM-B` to instruct the RCST to follow a predefined recovery procedure.
 - This predefined procedure is **implementation dependent**.
 
----
 ## Section 9.7.2: Contention Control for Control Timeslots (Optional)
 
-### 1. Functional Overview
+#### 1. Functional Overview
 
 - **The RCST may optionally use contention control timeslots** to transmit control signals.
 - This mechanism is **not mandatory**.
@@ -187,7 +185,7 @@ To determine the media access method used in each timeslot (e.g., random access 
 
 ---
 
-### 2. Stationary RA Load Control for Control Signals (9.7.2.1)
+#### 2. Stationary RA Load Control for Control Signals (9.7.2.1)
 
 - **The NCC defines the parameter `default_control_randomization_interval` in the TIM-U’s Lower Layer Service Descriptor**:
   - It specifies the **minimum randomization interval** for selecting a control timeslot using slotted ALOHA.
@@ -216,16 +214,12 @@ To determine the media access method used in each timeslot (e.g., random access 
   - The superframe is divided into **RA blocks**, which serve as the basic units for load control.
   - If unspecified, the entire superframe is treated as a **single RA block** by default.
 
----
-
 ### 9.7.3.1 Stationary RA Load Control for Traffic
 
 - Applicable when **dynamic load control is not enabled**.
 - The RCST uses the control parameter values defined in the **Lower Layer Service Descriptor**.
 - These parameters also serve as the **default values** for each RCST.
 - If dynamic load control is enabled, parameter values are instead taken from the **Random Access Load Control Descriptor**.
-
----
 
 ### 9.7.3.2 Dynamic RA Load Control for Traffic
 
