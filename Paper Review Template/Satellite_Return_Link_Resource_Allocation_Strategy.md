@@ -1,4 +1,5 @@
 # Return Link for User Traffic
+> https://www.researchgate.net/publication/375013711_Satellite_Return_Link_Resource_Allocation_Strategy_Based_on_DVB-RCS2
 ## 1. RCST Behavior: Data Preparation and Request
 
 The **Return Channel Satellite Terminal (RCST)** is the user-end equipment responsible for transmitting user data into the satellite system.
@@ -58,7 +59,7 @@ After receiving allocation information from the NOC:
 - Then it transmits the data through the satellite return link to the ground gateway or designated destination nodes.
 
 #  Forward Link User Traffic
-
+> https://dvb.org/wp-content/uploads/2019/12/a155-2_dvb-rcs2_lower_layers_satellite_v1_3_1_update.pdf?utm_source=chatgpt.com  (9.1.2& 9.1.3)
 ## 1. **Link Structure and Stream Configuration**
 
 The NOC manages and configures the forward link for user traffic through the following mechanisms:
@@ -96,8 +97,7 @@ The NOC uses the following signaling mechanisms to guide RCSTs in handling forwa
 - **TIM-U (Terminal Information Message – User)**: Sends configuration data to each RCST including channel assignments, MODCOD settings, and timing parameters.
 
 # Forward Link for Signalling (L2S)
-
-
+> https://www.etsi.org/deliver/etsi_en/301700_301799/301790/01.04.01_40/en_301790v010401o.pdf?utm_source=chatgpt.com
 ## 1. Broadcast Slot and Frequency Resource Allocation
 
 - **NOC configures the TDM carrier**:
@@ -140,7 +140,7 @@ The NOC uses the following signaling mechanisms to guide RCSTs in handling forwa
     - **Extended signalling content** (e.g., multilingual support, regional frequency info)
 
 # Return Link for Signalling
-
+> https://dvb.org/wp-content/uploads/2019/12/a155-2_dvb-rcs2_lower_layers_satellite_v1_3_1_update.pdf?utm_source=chatgpt.com  (ch8 & 9)
 ## 1. Resource Types: Random Access vs. Dedicated Access
 
 ###  Random Access (RA)
