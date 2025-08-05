@@ -1,4 +1,4 @@
-> Return Link for User Traffic
+# Return Link for User Traffic
 ## 1. RCST Behavior: Data Preparation and Request
 
 The **Return Channel Satellite Terminal (RCST)** is the user-end equipment responsible for transmitting user data into the satellite system.
@@ -56,3 +56,134 @@ After receiving allocation information from the NOC:
 - The RCST maps its packets into the assigned timeslots.
 
 - Then it transmits the data through the satellite return link to the ground gateway or designated destination nodes.
+
+#  Forward Link User Traffic
+
+## 1. **Link Structure and Stream Configuration**
+
+The NOC manages and configures the forward link for user traffic through the following mechanisms:
+
+- **TDM Stream Segmentation**: Based on service requirements, the NOC divides the forward link into:
+  - **Data-Only Streams**
+  - **Signalling-Only Streams**
+  - **Mixed Streams**
+
+- **Forward Link Descriptors**:
+  - **Satellite Forward Link Descriptor**
+  - **Satellite Forward Link v2 Descriptor**  
+  These descriptors define the purpose of each stream, resource ratio, and the target user group (defined by Population ID).
+
+---
+
+## 2. **Resource Scheduling and Spectrum Usage**
+
+- The NOC determines the configuration of each stream in terms of:
+  - Bandwidth (e.g., MHz allocated per stream)
+  - Modulation and Coding Scheme (MODCOD)
+  - Allocation timing (based on Superframe intervals)
+
+- Resources are flexibly allocated according to user groups (Population ID):
+  - For example, areas requiring high-speed data (e.g., video streaming) will be allocated higher bandwidth and better MODCOD in their corresponding stream.
+
+---
+
+## 3. **Control Information via RMT and TIM-U**
+
+The NOC uses the following signaling mechanisms to guide RCSTs in handling forward link reception:
+
+- **RMT (Receiver Map Table)**: Informs the RCST of which streams and Population IDs it is allowed to receive.
+
+- **TIM-U (Terminal Information Message – User)**: Sends configuration data to each RCST including channel assignments, MODCOD settings, and timing parameters.
+
+# Forward Link for Signalling (L2S)
+
+
+## 1. Broadcast Slot and Frequency Resource Allocation
+
+- **NOC configures the TDM carrier**:
+  - The Forward Link for Signalling uses **TDM (Time Division Multiplexing)** mode.
+  - The NOC assigns **specific frequencies, timing structures, and modulation parameters** to transmit L2S data.
+
+- **L2S message segments (e.g., TIM-B / TIM-U) are inserted into the TDM carrier**:
+  - TIM (Terminal Information Messages) contain control descriptors such as:
+    - `Logon Contention Descriptor`
+    - `Lower Layer Service Descriptor`
+    - `FLD (Forward Link Descriptor)`
+
+---
+
+## 2. Broadcasting Targeted Control Messages by Population ID
+
+- The NOC may classify RCSTs into different groups using **Population ID**:
+  - Then selectively broadcasts messages related to:
+    - Logon
+    - Frequency synchronization
+    - Resource allocation
+  - This allows differentiated management based on the network segment or service type the RCST belongs to.
+
+---
+
+## 3. Managing Scheduling and Broadcast Cycles
+
+- The NOC determines **when**, **how often**, and **at what interval** to:
+  - Repeatedly send logon signalling
+  - Broadcast updates like bandwidth reallocation or return link parameters (e.g., MODCOD, timeslot count)
+
+---
+
+## 4. Controlling and Adapting Content Format
+
+- Based on the **protocol version** and **link conditions** supported by the RCST:
+  - The NOC adjusts the format and length of the signalling data broadcast.
+  - This includes:
+    - Standard **TIM-B** format
+    - **Extended signalling content** (e.g., multilingual support, regional frequency info)
+
+# Return Link for Signalling
+
+## 1. Resource Types: Random Access vs. Dedicated Access
+
+###  Random Access (RA)
+- Used by RCSTs that are not yet logged in or are in the initial stages of connection.
+- NOC broadcasts allowable RA parameters via **Logon Contention Descriptor** in **TIM-B messages**, including:
+  - Number of available timeslots
+  - Max retry delay (`max_time_before_retry`)
+  - Retransmission mechanisms
+- Supports **Slotted ALOHA** and **CRDSA** multiple access schemes.
+
+###  Dedicated Access
+- Assigned to authenticated and logged-in RCSTs.
+- Controlled through the **Terminal Burst Time Plan (TBTP)**.
+- Allocates exclusive timeslots to specific RCSTs to ensure reliable control message delivery.
+
+---
+
+## 2. Random Access Control Parameters
+
+The NOC dynamically adjusts the access control to maintain system performance:
+
+- `max_time_before_retry`: Defines the random wait interval after a failed attempt.
+- `default_control_randomization_interval`: Sets the minimum randomized gap between RA attempts.
+- Constraints such as:
+  - `max_unique_payload_per_block`: Max allowed transmissions per RA block.
+  - `max_consecutive_blocks_accessed`: Max number of consecutive used RA blocks.
+
+---
+
+## 3. Timeslot Configuration and Broadcasting
+
+- In each **Superframe**, the NOC defines specific timeslots for signalling.
+- This configuration is broadcast via:
+  - **SCT** (Superframe Composition Table)
+  - **FCT2** (Frame Composition Table v2)
+  - **TBTP2** (Terminal Burst Time Plan v2)
+
+---
+
+## 4. Additional Stability and Recovery Controls
+
+- **Dynamic Load Control**:
+  - NOC adjusts access parameters based on network load to avoid collisions.
+- **Failure Recovery Mechanism**:
+  - During large-scale outages, NOC may set a recovery flag in TIM-B to trigger specific reconnect procedures at the RCST.
+
