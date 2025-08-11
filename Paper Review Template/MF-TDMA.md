@@ -122,7 +122,10 @@ It is determined by multiple factors:
 The NCC (Network Control Center) allocates and controls guard time via:
 - **FCT2**: Frame Configuration Table 2  
 - **BCT**: Broadcast Configuration Table  
-- **TBTP2**: Traffic Burst Time Plan 2 
+- **TBTP2**: Traffic Burst Time Plan 2
+
+<img width="1172" height="352" alt="image" src="https://github.com/user-attachments/assets/e4b01b5f-37ab-48ba-a81a-9f3d6456eb34" />
+
 ---
 
 ## The Dynamic MF-TDMA Transmission Channel
