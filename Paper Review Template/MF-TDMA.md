@@ -4,15 +4,49 @@
 ## Superframe 
 <img width="448" height="317" alt="image" src="https://github.com/user-attachments/assets/ccaedd38-f4e7-482b-9f8b-61562de10b59" />
 
-- The **MF-TDMA return link structure** is divided by timeslots in a time × frequency grid, called a **superframe**.
-- A superframe is the largest unit for resource allocation, consisting of multiple **frames**, and each frame consists of multiple **timeslots**.
-- **In the diagram, the vertical axis represents different carrier frequencies, and the horizontal axis represents time**.
-- Each frequency block is associated with a corresponding frame (F_nb), for example:
+**1. Structure**
+- The **MF-TDMA return link** is organized in a **time × frequency grid**, called a **superframe**.  
+- **Superframe**: Largest unit for resource allocation  
+  - Consists of multiple **frames**  
+  - Each frame consists of multiple **timeslots**  
+- **Diagram interpretation**:  
+  - **Vertical axis** → Different carrier frequencies  
+  - **Horizontal axis** → Time progression  
+- **Example (Carrier ↔ Frame Number)**:  
   - Carrier 0: F_nb 0, 2  
   - Carrier 1: F_nb 6, 8  
-  - Carrier 2: F_nb 12, 14, etc.
-- The RCST (user terminal) transmits bursts based on the superframe structure assigned by the NCC.
-- The superframe has a duration constraint. The RCST must support **superframe durations ranging from 25 ms to 750 ms**.
+  - Carrier 2: F_nb 12, 14, etc.  
+
+**2. Timing Constraints**
+- **Superframe Duration** (ETSI specification): **25 ms ~ 750 ms**  
+- Duration is determined by:  
+    Superframe Duration = N_frames × Frame Duration
+
+- Common practical configurations:  
+  - **16–32 frames per superframe**  
+  - **Frame Duration**: 20–40 ms  
+  - Example:  
+    - 16 × 40 ms ≈ 640 ms  
+    - 32 × 20 ms ≈ 640 ms  
+
+**3. Control and Allocation**
+- **NCC (Network Control Center)** assigns superframe structure to each **RCST** (user terminal).  
+- **SF-CTRL** (Superframe Control) message includes:  
+  - Timeslot allocation  
+  - Modulation and coding scheme  
+  - User ID mapping  
+- **Frame Number (F_nb)** is used to identify the order of frames in a superframe.  
+  - May use cyclic or even/odd numbering, not necessarily consecutive (1, 2, 3, 4).  
+
+**4. Design Considerations**
+- **Short frame duration** → Higher control overhead, lower efficiency  
+- **Long frame duration** → Lower allocation flexibility, higher delay  
+- Engineering trade-off between **number of frames (N)** and **frame duration**  
+
+
+
+
+
 
 ---
 ## Superframe Sequence
@@ -31,6 +65,28 @@
 - Each frame is composed of one or more **BTUs (Bandwidth-Time Units)** forming a time-frequency slot grid.
 - Horizontal axis: time; vertical axis: frequency. Each cell in the grid is a type-G BTU.
 - A single frame may span across multiple carriers, forming a **multi-carrier frame**.
+
+In the **MF-TDMA structure of DVB-RCS2**, the number of **timeslots** that a **frame** can be divided into mainly depends on:
+
+1. **Frame Duration**
+   - Commonly set to **20 ms ~ 40 ms** (can be shorter or longer in some systems).
+
+2. **Timeslot Duration**
+   - Determined by system requirements and the modulation & coding scheme (ModCod).
+   - In ETSI standards, the minimum can be less than 1 ms (but too short increases control overhead).
+
+3. **Carrier Bandwidth & Number of Carriers**
+   - Each frame can contain multiple frequency channels, and each frequency channel is further divided into timeslots.
+
+🔹 **Example of a common practical configuration**
+
+- Frame Duration = **40 ms**  
+- Timeslot Duration = **1 ms**  
+- → Each frame can have up to **40 timeslots per frequency**.
+
+If the system has **multiple carriers**, each carrier has its own timeslot set. For example:  
+- 4 carriers × 40 timeslots per carrier = **160 timeslots per frame**.
+
 
 <img width="967" height="431" alt="image" src="https://github.com/user-attachments/assets/d7d1e23b-a646-41af-b7bb-1c17ec1e3de4" />
 
@@ -64,9 +120,9 @@ It is determined by multiple factors:
 
 ### Who allocates it?
 The NCC (Network Control Center) allocates and controls guard time via:
-- `FCT2`
-- `BCT`
-- `TBTP2`
+- **FCT2**: Frame Configuration Table 2  
+- **BCT**: Broadcast Configuration Table  
+- **TBTP2**: Traffic Burst Time Plan 2 
 ---
 
 ## The Dynamic MF-TDMA Transmission Channel
@@ -79,8 +135,8 @@ The NCC (Network Control Center) allocates and controls guard time via:
   - Start times and durations
 ###  Where are these parameters defined?
 - BTP (Burst Time Plan)
-- FCT2
-- BCT
+- FCT2(Frame Configuration Table 2)
+- BCT(Broadcast Configuration Table)
 ###  Dynamic transmission behavior:
 - A single RCST may use different timeslots with varying bandwidths and durations.
 - As shown in Figure 7-31, the RCST may jump between frequencies over time (indicated by the arrows).
