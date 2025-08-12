@@ -1,35 +1,8 @@
-# Functional block diagram of the DVB-S2X System
+# Functional block diagram of the DVB-S2 System
 <img width="206" height="414" alt="image" src="https://github.com/user-attachments/assets/cc43c237-59da-4fe2-890e-75edeff3502f" />
 
 ## Mode Adaptation
 <img width="301" height="667" alt="image" src="https://github.com/user-attachments/assets/6c688efd-bb51-4698-88ee-dc4fdefcd20a" />
-
-### Flow Steps:
-
-1. **Input Stream Interfacing**
-   - Receives the input stream(s), either a single transport stream or multiple input streams.
-
-2. **Is Synchronization Needed?**
-   - If yes → Perform **Input Stream Synchronization** to align timing.
-   - If No → Continue to next check.
-
-3. **Is input type Transport Stream (TS) with ACM?**
-   - If yes → Execute **Null Packet Deletion** to remove unnecessary filler packets.
-   - If No → Continue to next check.
-
-4. **Is input packetized?**
-   - If yes → Apply **CRC-8 Coding** to enable error detection at the packet level.
-   - If No → Continue to next check.
-
-5. **Are multiple input streams used?**
-   - If yes → Perform **Merging of Input Streams** before slicing.
-   - If No → Continue to next check.
-
-6. **Slicing into DATA FIELDs**
-   - The data is segmented into appropriate size units (DATA FIELDs) for baseband framing.
-
-7. **Output to Stream Adaptation**
-   - The processed data is passed to the next block for **stream adaptation** and baseband header attachment.
 
 ### Input Stream Synchronization?
 
@@ -59,7 +32,7 @@ Adaptive Coding and Modulation (ACM) is a technique that dynamically adjusts the
 
 This decision point exists because **Null-Packet Deletion** is only applicable under specific conditions:
 
-- The input data format is **Transport Stream (TS)**, and  
+- The input data format is **Transport Stream (TS)** 
 - The mode used is **ACM (Adaptive Coding and Modulation)**.
 
 Only when both conditions are met will the system perform null-packet deletion, which helps improve bandwidth efficiency and enhances error protection in the modulator.
@@ -74,3 +47,35 @@ If the input is a **Generic Stream** (which does not include null packets), or i
   - Enhance error protection performance in the modulator.
 - **Receiver Recovery**: The removed null-packets are **re-inserted at the receiver** in their original positions to maintain data integrity.
 - **Specification**: This process must comply with the specifications defined in **Annex D** of the standard.
+
+###  Why is "Is input packetized?" an optional step?
+
+1. **Different Input Types**  
+   In DVB systems, input data may come from various sources, such as:
+
+   - **Packetized formats**: e.g., MPEG Transport Stream (TS), which has a clear packet structure.
+   - **Continuous byte streams**: e.g., certain streaming modes or non-standard data sources, which have no explicit packet boundaries.
+
+2. **CRC checking is only applicable to packetized input**
+
+   - If the input is packetized, each packet can be appended with **CRC-8 coding** to enable error checking at the receiver side.
+   - If the input is a continuous stream, there is no defined "packet" unit, so **packet-level CRC cannot be applied**, and this step is skipped accordingly.
+
+### CRC-8 Encoding (For Packetized Data Only)
+
+#### When is it needed?
+
+- If the input is a **continuous data stream** (UPL = 0): **no processing is needed**, transmit directly.
+- If the input is **packetized** (UPL ≠ 0, fixed-length packets with a sync-byte): **CRC-8 encoding must be applied**.
+
+#### How does it work?
+
+1. **Remove the sync-byte at the beginning of each packet**.
+2. Apply CRC-8 encoding to the remaining data (using a predefined polynomial).
+3. The **computed CRC value** will **replace the sync-byte of the next packet**.
+
+#### Why is it useful?
+
+- It helps **detect transmission errors**.
+- The CRC is generated on the sender side and can be used by the receiver to **verify data integrity**.
+
