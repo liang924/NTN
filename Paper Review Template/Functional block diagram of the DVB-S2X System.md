@@ -67,7 +67,7 @@ If the input is a **Generic Stream** (which does not include null packets), or i
 
 - If the input is a **continuous data stream** (UPL = 0): **no processing is needed**, transmit directly.
 - If the input is **packetized** (UPL ≠ 0, fixed-length packets with a sync-byte): **CRC-8 encoding must be applied**.
-
+> UPL (User Packet Length) is a parameter used to describe the length of each user packet. It also represents the actual packet length, but only when the input is packetized (i.e., when UPL ≠ 0).
 #### How does it work?
 
 1. **Remove the sync-byte at the beginning of each packet**.
@@ -79,3 +79,65 @@ If the input is a **Generic Stream** (which does not include null packets), or i
 - It helps **detect transmission errors**.
 - The CRC is generated on the sender side and can be used by the receiver to **verify data integrity**.
 
+### Merging of input streams
+
+Some systems only need to process a single input stream (such as a single service, channel, or data source), in which case merging multiple streams is not required.
+
+### What is the Slicer and Why Do We Need It?
+
+In DVB systems, input data usually comes in a continuous form—such as streaming video or packetized input streams. Before this data can be passed to the next processing stage (like encoding or modulation), it must be organized into **fixed-length blocks**. This task is handled by the **Slicer**.
+
+#### Key Functions of the Slicer:
+
+- **Data Slicing**:
+  - Whether it's a single input stream or multiple input streams, the Slicer reads from them sequentially.
+  - Based on the `DFL` (Data Field Length), it cuts the input into fixed-size units called **DATA FIELDs**.
+  - These data fields are then forwarded to the next module for further transmission processing.
+
+- **Ensuring Length Matches Transmission Mode**:
+  - According to the configuration of modulation and FEC (Forward Error Correction), each data field must match the channel's capacity.
+  - If the available data is insufficient to fill a complete DATA FIELD, the system will send a **DUMMY PLFRAME** to maintain structural integrity.
+
+- **Integration with Synchronization Mechanism**:
+  - If CRC-8 replacement has been applied earlier (such as in packetized input), the receiver will rely on the `SYNC` field to align data correctly.
+  - The Slicer fills this synchronization field to help the receiver locate the first valid user packet.
+
+## Stream Adaptation
+
+In the DVB system, **Stream Adaptation** is the process of converting raw input data into a fixed format (BBFRAME), allowing it to undergo error correction (FEC) and modulation for transmission.
+
+This step mainly performs two tasks:
+
+1. **Padding** → Adds zero bits to make the data reach a fixed length.  
+2. **Scrambling** → Randomizes the data to avoid long runs of 0s or 1s, which could affect synchronization and spectral efficiency.
+
+<img width="804" height="260" alt="image" src="https://github.com/user-attachments/assets/2548ac1c-ab08-4d7f-973f-38bf28118123" />
+
+> Figure 4 shows the structure of a BBFRAME, which is the final output of Stream Adaptation.
+
+### 1. **BBHEADER (80 bits)**
+
+- This is the start of each BBFRAME, with a fixed size of **80 bits**.
+- It contains essential control information, such as:
+  - Type of input stream
+  - Coding and modulation parameters
+  - Packet synchronization (if enabled)
+
+### 2. **DATA FIELD (DFL)**
+
+- DFL stands for **Data Field Length**, which represents the actual size of valid user data.
+- This part carries the real payload, such as video, audio, or stream packets.
+
+### 3. **PADDING (K_bch − DFL − 80 bits)**
+
+- If user data is insufficient to fill the entire BBFRAME, padding (zeros) is added at the end.
+- Padding length = `K_bch − DFL − 80`
+- It ensures that the BBFRAME reaches a constant size required for FEC encoding.
+
+---
+
+## 📦 BBFRAME (Total length = K_bch bits)
+
+- A complete BBFRAME is made up of:  `BBFRAME = BBHEADER + DATA FIELD + PADDING`
+- The total length is fixed to **K_bch bits**, depending on the FEC rate.
+- This fixed size is necessary for reliable encoding and modulation in DVB systems.
