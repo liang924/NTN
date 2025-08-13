@@ -136,8 +136,62 @@ This step mainly performs two tasks:
 
 ---
 
-## 📦 BBFRAME (Total length = K_bch bits)
+### BBFRAME (Total length = K_bch bits)
 
 - A complete BBFRAME is made up of:  `BBFRAME = BBHEADER + DATA FIELD + PADDING`
 - The total length is fixed to **K_bch bits**, depending on the FEC rate.
 - This fixed size is necessary for reliable encoding and modulation in DVB systems.
+
+## FEC Encoding
+
+In the **DVB-S2X** system, before data gets transmitted over the air, it goes through several "transformation" stages. These steps make sure the data stays safe and accurate—even after a super long trip through space!
+
+There are three main stages in this process:
+
+### Step 1: BCH(Bose–Chaudhuri–Hocquenghem Code) Encoding (Outer Error Correction)
+
+- **What’s BCH?**  
+  A classic but powerful error-correcting code.  
+  It handles small burst errors—like putting the first layer of armor on your data.
+
+- **What happens here?**  
+  It adds some parity bits (like a checksum) to the end of the data block, which helps fix small mistakes later on.
+
+### Step 2: LDPC(Low-Density Parity-Check Code) Encoding (Inner Error Correction)
+
+- **What’s LDPC?**  
+  One of the strongest error correction codes used today—popular in satellites and 5G systems.  
+  Think of it as putting your data in a bulletproof vest 
+
+- **What happens here?**  
+  The BCH-encoded data is passed through LDPC encoding, which adds more redundancy to help recover data even under heavy interference.
+
+### Step 3: Bit Interleaving
+
+- **Why interleave?**  
+  If interference damages a continuous block of bits, recovery becomes harder.  
+  Interleaving shuffles the bits around, spreading potential errors so they’re easier to correct.
+
+- **What happens here?**  
+  The order of the bits from LDPC is rearranged (shuffled), so errors that do happen will affect fewer bits in a row.
+
+### What Do We Get?
+
+After these three steps, we end up with a robust block called the **FECFRAME (Forward Error Correction Frame)**:
+
+- It starts from a BBFRAME (Baseband Frame), then passes through BCH → LDPC → Interleaving.
+- The result is a super tough data packet that can survive long-range satellite transmission!
+
+### Why All This Matters?
+
+Satellite links aren’t as clean as Wi-Fi. Signals can get distorted due to:
+
+- Atmospheric noise  
+- Long-distance delay  
+- Signal fading or interference  
+
+These three error-protection steps:
+
+- Make the data more resistant to damage  
+- Lower the error rate at the receiver  
+- Boost the overall system reliability
